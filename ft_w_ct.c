@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_word_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 09:26:47 by hyu               #+#    #+#             */
-/*   Updated: 2019/10/07 10:45:54 by hyu              ###   ########.fr       */
+/*   Created: 2019/10/05 19:33:23 by hyu               #+#    #+#             */
+/*   Updated: 2019/10/06 17:01:02 by hyu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int			ft_w_ct(const char *s, char c)
 {
-	size_t		i;
+	int		i;
+	int		j;
 
 	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && (s1[i] == s2[i]) && (i < n - 1))
+	j = 0;
+	if (s[j] != c && s[j] != '\0')
 	{
 		i++;
+		j++;
 	}
-	return (((unsigned char)s1[i] - (unsigned char)s2[i]));
+	while (s[j])
+	{
+		if (s[j] == c)
+		{
+			j++;
+			if (s[j] != c && s[j] != '\0')
+				i++;
+		}
+		while (s[j] != c && s[j] != '\0')
+			j++;
+	}
+	return (i);
 }

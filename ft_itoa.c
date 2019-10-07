@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 09:26:47 by hyu               #+#    #+#             */
-/*   Updated: 2019/10/07 10:45:54 by hyu              ###   ########.fr       */
+/*   Created: 2019/09/24 15:55:05 by hyu               #+#    #+#             */
+/*   Updated: 2019/10/07 12:18:46 by hyu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+char			*ft_itoa(int n)
 {
-	size_t		i;
+	char		*str;
+	int			i;
 
-	i = 0;
+	i = ft_int_len(n);
+	if (!(str = (char*)malloc((i + 1) * sizeof(char))))
+		return (NULL);
 	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && (s1[i] == s2[i]) && (i < n - 1))
+		return (ft_strdup("0"));
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	str[i--] = '\0';
+	if (n < 0)
 	{
-		i++;
+		str[0] = '-';
+		n = n * -1;
 	}
-	return (((unsigned char)s1[i] - (unsigned char)s2[i]));
+	while (n >= 1)
+	{
+		str[i] = n % 10 + '0';
+		n = n / 10;
+		i--;
+	}
+	return (str);
 }
